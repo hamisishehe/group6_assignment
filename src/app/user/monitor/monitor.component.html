@@ -1,0 +1,89 @@
+<div class="w-full min-h-screen mt-24 ">
+
+  <!-- Loader -->
+  <div *ngIf="isLoading" class="flex items-center justify-center h-64">
+    <svg class="w-12 h-12 text-blue-600 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-label="Loading">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+    </svg>
+  </div>
+
+  <div *ngIf="!isLoading" class="space-y-6">
+
+    <!-- Breadcrumb -->
+    <nav
+      class="flex flex-col justify-between p-4 bg-gray-100 border border-gray-200 rounded-lg shadow-sm sm:flex-row sm:items-center dark:bg-gray-900 dark:border-gray-700"
+      aria-label="Breadcrumb"
+    >
+      <ol class="flex items-center space-x-2 text-sm text-gray-600 rtl:space-x-reverse dark:text-gray-400 sm:text-base">
+        <li>
+          <a href="#" class="font-medium hover:text-blue-600 dark:hover:text-blue-400">Home</a>
+        </li>
+        <li aria-current="page" class="flex items-center">
+          <svg class="w-4 h-4 mx-1 text-gray-400 rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 6 10" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m1 9 4-4-4-4"></path>
+          </svg>
+          <span class="font-semibold text-gray-700 dark:text-gray-300">Domain Info</span>
+        </li>
+      </ol>
+
+
+    </nav>
+
+    <!-- Table -->
+    <div class="overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700">
+        <table id="search-table">
+    <thead>
+      <tr>
+
+
+         <th>
+          <span class="flex items-center"> Name </span>
+        </th>
+         <th>
+          <span class="flex items-center"> Url </span>
+        </th>
+         <th>
+          <span class="flex items-center"> Ssl Info </span>
+        </th>
+         <th>
+          <span class="flex items-center"> Domain Expire </span>
+        </th>
+         <th>
+          <span class="flex items-center"> Status </span>
+        </th>
+         <th>
+          <span class="flex items-center">Status Code </span>
+        </th>
+        <th>
+          <span class="flex items-center">Server </span>
+        </th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngIf="fullmonitor">
+        <td>{{website_name}}</td>
+        <td>{{ fullmonitor.url }} </td>
+        <td>{{ fullmonitor.ssl_info.valid_from }}</td>
+        <td>{{ fullmonitor.domain_expiry }}</td>
+         <td>{{ fullmonitor.monitoring_status.status }}</td>
+        <td>{{ fullmonitor.monitoring_status.status_code }}</td>
+        <td>{{ fullmonitor.monitoring_status.server }}</td>
+
+      </tr>
+    </tbody>
+  </table>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+

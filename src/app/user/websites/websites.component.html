@@ -1,0 +1,170 @@
+<div class="w-full min-h-screen mt-24 ">
+
+  <!-- Loader -->
+  <div *ngIf="isLoading" class="flex items-center justify-center h-64">
+    <svg class="w-12 h-12 text-blue-600 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-label="Loading">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+    </svg>
+  </div>
+
+  <div *ngIf="!isLoading" class="space-y-6">
+
+    <!-- Breadcrumb -->
+    <nav
+      class="flex flex-col justify-between p-4 bg-gray-100 border border-gray-200 rounded-lg shadow-sm sm:flex-row sm:items-center dark:bg-gray-900 dark:border-gray-700"
+      aria-label="Breadcrumb"
+    >
+      <ol class="flex items-center space-x-2 text-sm text-gray-600 rtl:space-x-reverse dark:text-gray-400 sm:text-base">
+        <li>
+          <a href="#" class="font-medium hover:text-blue-600 dark:hover:text-blue-400">Home</a>
+        </li>
+        <li aria-current="page" class="flex items-center">
+          <svg class="w-4 h-4 mx-1 text-gray-400 rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 6 10" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m1 9 4-4-4-4"></path>
+          </svg>
+          <span class="font-semibold text-gray-700 dark:text-gray-300">Website</span>
+        </li>
+      </ol>
+
+      <div class="flex mt-4 space-x-3 rtl:space-x-reverse sm:mt-0">
+
+
+        <button
+          (click)="openModal()"
+          class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 transition bg-gray-800 rounded-lg hover:bg-gray-300 focus:ring-2 focus:ring-blue-400 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:focus:ring-blue-600"
+          aria-label="New Website"
+        >
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 16 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 5v10M3 5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm9-10v.4A3.6 3.6 0 0 1 8.4 9H6.61A3.6 3.6 0 0 0 3 12.605M14.458 3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"></path>
+          </svg>
+          <h1 class="text-white">New Website</h1>
+          <svg class="w-3 h-3 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m1 1 4 4 4-4"></path>
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Table -->
+    <div class="overflow-x-auto border border-gray-200 rounded-lg shadow-md dark:border-gray-700">
+        <table id="search-table">
+    <thead>
+      <tr>
+        <th>
+          <span class="flex items-center"> # </span>
+        </th>
+        <th>
+          <span class="flex items-center"> Name </span>
+        </th>
+        <th>
+          <span class="flex items-center"> Url </span>
+        </th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let items of websites">
+        <td>{{ items.id }}</td>
+        <td>{{ items.name }}</td>
+        <td>{{ items.url }}</td>
+
+      </tr>
+    </tbody>
+  </table>
+
+    </div>
+
+  </div>
+</div>
+
+ <!-- Modal -->
+ <div *ngIf="isOpen" class="fixed inset-0 flex items-center justify-center bg-gray-200 bg-opacity-50 rounded-lg">
+      <div class="p-2 mt-20 bg-white rounded-lg shadow-lg " style="width: 500px;">
+
+        <div class="grid justify-between grid-flow-col">
+          <h3 class="mt-2 font-semibold text-md">New Website</h3>
+          <div class="flex justify-end ">
+            <button (click)="closeModal()" class="px-4 py-2 text-white bg-red-500 rounded hover:bg-red-600">
+              Close
+            </button>
+          </div>
+        </div>
+
+
+         <div class="p-3 ">
+            <form (ngSubmit)="Insert_Website()" #websiteform="ngForm">
+
+              <div class="mt-4">
+                <label
+                  for="website"
+                  class="block mb-2 text-sm font-bold text-slate-800"
+                  >Website Name</label
+                >
+                <input
+                  [(ngModel)]="name"
+                  #v_website="ngModel"
+                  type="text"
+                  id="name"
+                  name="name"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                  required
+                />
+                <!-- Error message for programme -->
+                <div
+                  *ngIf="v_website.invalid && v_website.touched"
+                  class="mt-1 text-sm text-red-600"
+                >Field Required</div>
+              </div>
+
+
+              <div class="mt-4">
+                <label
+                  for="website Url"
+                  class="block mb-2 text-sm font-bold text-slate-800"
+                  >Website Url</label
+                >
+                <input
+                  [(ngModel)]="url"
+                  #v_url="ngModel"
+                  type="text"
+                  id="url"
+                  name="url"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                  required
+                />
+                <!-- Error message for Students-->
+                <div
+                  *ngIf="v_url.invalid && v_url.touched"
+                  class="mt-1 text-sm text-red-600"
+                ></div>
+              </div>
+
+
+
+              <button
+              [disabled]="!websiteform.valid"
+              class="w-full py-2 mt-4 text-white rounded-lg bg-slate-900"
+            >
+             Submit
+            </button>
+
+
+
+
+            </form>
+
+         </div>
+
+      </div>
+ </div>
+
+
+
+
+
+
+
+
+
